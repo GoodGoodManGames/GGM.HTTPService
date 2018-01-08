@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="GGM.Application" Version="1.5.1" />
+    <PackageReference Include="RazorLight" Version="2.0.0-beta1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GGM.Serializer\GGM.Serializer.csproj" />
+  </ItemGroup>
+</Project>
