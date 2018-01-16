@@ -15,18 +15,14 @@ namespace DemoServer.Service
     public class MyWebService : WebService
     {
         [AutoWired]
-        public MyWebService(MyController myController) : base(null, new string[] { "http://localhost:8002/" }, myController)
+        public MyWebService(MyController myController, RazorTemplateResolverFactory resolverFactory) : base(resolverFactory, null, new string[] { "http://localhost:8002/" }, myController)
         {
         }
 
-        [Config("WebService.ResourcePath")]
-        public string ResourcePath { get; set; }
         
         public override Task Boot(string[] arguments)
         {
             Console.WriteLine("WebServer Start!");
-
-            TempleteResolver = new RazorTempleteResolver(Path.Combine(Directory.GetCurrentDirectory(), ResourcePath));
             Serializer = new TestSerializer();
             return base.Boot(arguments);
         }
