@@ -15,9 +15,9 @@ namespace GGM.Web
     /// </summary>
     public class WebService : IService
     {
-        public WebService(IRouter router, string[] prefixes, params object[] controllers)
+        public WebService(ITempleteResolverFactory resolverFactory, ISerializerFactory serializerFactory, string[] prefixes, params object[] controllers)
         {
-            Router = router ?? new DefaultRouter();
+            Router = new DefaultRouter();
             Controllers = controllers;
             foreach (var controller in controllers)
                 Router.RegisterController(controller);
@@ -25,11 +25,16 @@ namespace GGM.Web
             HttpListener = new HttpListener();
             foreach (var prefix in prefixes)
                 HttpListener.Prefixes.Add(prefix);
+
+            if (resolverFactory != null)
+                TempleteResolver = resolverFactory.Create();
+            if (serializerFactory != null)
+                Serializer = serializerFactory.Create();
         }
 
         public Guid ID { get; set; }
         public IRouter Router { get; }
-        public ITempleteResolver TempleteResolver { get; protected set; }
+        public ITempleteResolver TempleteResolver { get; }
         public ISerializer Serializer { get; protected set; }
         protected object[] Controllers { get; }
         protected HttpListener HttpListener { get; }

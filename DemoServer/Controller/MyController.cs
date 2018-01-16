@@ -3,8 +3,10 @@ using System.Dynamic;
 using System.Net;
 using System.Threading.Tasks;
 using GGM.Web;
+using GGM.Web.Router;
 using GGM.Web.Router.Attribute;
 using GGM.Web.View;
+using System.Collections.Generic;
 
 namespace DemoServer.Controller
 {
@@ -29,6 +31,14 @@ namespace DemoServer.Controller
         public TestModel GetSerializerTest()
         {
             return new TestModel("asd", 123);
+        }
+
+        [Get("/reponse")]
+        public Response GetResponse()
+        {
+            return Response.SetBody(new TestModel("asd", 123))
+                        .SetHeader("application/content-type", "application/json")
+                        .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
         }
     }
 

@@ -12,7 +12,7 @@ namespace UnitTest
         [Fact]
         public async Task Test1()
         {
-            var service = new WebService(null, new[] { "http://localhost:8000/" }, new TestController());
+            var service = new WebService(null, null, new[] { "http://localhost:8000/" }, new TestController());
             await service.Boot(new string[] { });
         }
 
