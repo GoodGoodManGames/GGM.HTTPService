@@ -5,6 +5,7 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GGM.Serializer.Protobuf\GGM.Serializer.Protobuf.csproj" />
     <ProjectReference Include="..\GGM.TempleteResolver.Razor\GGM.TempleteResolver.Razor.csproj" />
     <ProjectReference Include="..\GGM.Web\GGM.Web.csproj" />
   </ItemGroup>

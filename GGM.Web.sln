@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.TempleteResolver.Razor"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Serializer", "GGM.Serializer\GGM.Serializer.csproj", "{B1225A5C-F262-4AD6-B185-3582A5432798}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Serializer.Protobuf", "GGM.Serializer.Protobuf\GGM.Serializer.Protobuf.csproj", "{192BE8B7-5183-41D0-8722-0B20F42A691E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B1225A5C-F262-4AD6-B185-3582A5432798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1225A5C-F262-4AD6-B185-3582A5432798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1225A5C-F262-4AD6-B185-3582A5432798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

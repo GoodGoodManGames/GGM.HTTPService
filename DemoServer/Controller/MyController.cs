@@ -25,6 +25,7 @@ namespace DemoServer.Controller
             return ViewModel.Get("index").SetModel(new TestModel(userName, int.Parse(userID)));
         }
 
+        // Warring : TestModel은 IMessage가 아니므로 프로토버퍼에 의해 Serialzie 되지 못함.
         [Get("/serializer")]
         public TestModel GetSerializerTest()
         {
