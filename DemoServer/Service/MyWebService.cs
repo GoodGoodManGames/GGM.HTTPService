@@ -8,6 +8,7 @@ using GGM.Web;
 using GGM.Web.Router;
 using GGM.Application.Attribute;
 using GGM.Serializer;
+using GGM.Serializer.Protobuf;
 using GGM.Web.View.Razor;
 
 namespace DemoServer.Service
@@ -15,7 +16,8 @@ namespace DemoServer.Service
     public class MyWebService : WebService
     {
         [AutoWired]
-        public MyWebService(MyController myController, RazorTemplateResolverFactory resolverFactory) : base(resolverFactory, null, new string[] { "http://localhost:8002/" }, myController)
+        public MyWebService(MyController myController, RazorTemplateResolverFactory resolverFactory, ProtobufSerializerFactory serializerFactory) 
+            : base(resolverFactory, serializerFactory, new string[] { "http://localhost:8002/" }, myController)
         {
         }
 
@@ -23,21 +25,7 @@ namespace DemoServer.Service
         public override Task Boot(string[] arguments)
         {
             Console.WriteLine("WebServer Start!");
-            Serializer = new TestSerializer();
             return base.Boot(arguments);
-        }
-    }
-
-    public class TestSerializer : ISerializer
-    {
-        public T Deserialize<T>(byte[] bytes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public byte[] Serialize<T>(T data)
-        {
-            return Encoding.UTF8.GetBytes(data.GetType().Name);
         }
     }
 }

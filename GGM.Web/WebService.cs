@@ -15,7 +15,12 @@ namespace GGM.Web
     /// </summary>
     public class WebService : IService
     {
+<<<<<<< HEAD
         public WebService(ITempleteResolverFactory resolverFactory, ISerializerFactory serializerFactory, string[] prefixes, params object[] controllers)
+=======
+        public WebService(ITempleteResolverFactory resolverFactory, ISerializerFactory serializerFactory,
+            string[] prefixes, params object[] controllers)
+>>>>>>> 509cd40cf68bfa1bae3571a37150e5fc8287ebe1
         {
             Router = new DefaultRouter();
             Controllers = controllers;
@@ -84,6 +89,7 @@ namespace GGM.Web
                                 responseBody = Serializer.Serialize(data);
                                 break;
                         }
+
 
                         if (responseBody != null)
                             await outputStream.WriteAsync(responseBody, 0, responseBody.Length);
