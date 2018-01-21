@@ -33,11 +33,11 @@ namespace DemoServer.Controller
             return new TestModel("asd", 123);
         }
 
-        [Get("/reponse")]
+        [Get("/response")]
         public Response GetResponse()
         {
             return Response.SetBody(new TestModel("asd", 123))
-                        .SetHeader("application/content-type", "application/json")
+                        .SetHeader("GoodGoodMan_will", "Succeed")
                         .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
         }
     }

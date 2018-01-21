@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GGM.Serializer;
 using GGM.Web.Router;
 using GGM.Web.View;
+using System.Collections.Generic;
 
 namespace GGM.Web
 {
@@ -64,7 +65,7 @@ namespace GGM.Web
                 {
                     result = e.ToString();
                 }
-
+                
                 using (var response = context.Response)
                 using (var outputStream = response.OutputStream)
                 using (var writer = new StreamWriter(outputStream))
@@ -75,13 +76,20 @@ namespace GGM.Web
                         switch (result)
                         {
                             case string resultText:
-                                responseBody = Encoding.UTF8.GetBytes(resultText);
+                                responseBody = GetSerializedResponseData(resultText);
                                 break;
                             case ViewModel viewModel:
-                                responseBody = Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(viewModel));
+                                responseBody = await GetSerializedResponseData(viewModel);
+                                break;
+                            case Response bodyWithHeader:
+                                var header = bodyWithHeader.Header;
+                                var body = bodyWithHeader.Model;
+                                foreach (var key in header.Keys)
+                                    response.AddHeader(key, header[key]);
+                                responseBody = GetSerializedResponseData(body);
                                 break;
                             case object data:
-                                responseBody = Serializer.Serialize(data);
+                                responseBody = GetSerializedResponseData(data);
                                 break;
                         }
 
@@ -91,6 +99,27 @@ namespace GGM.Web
                 }
             }
         }
+
+        private byte[] GetSerializedResponseData(string resultText)
+        {
+            return Encoding.UTF8.GetBytes(resultText);
+        }
+
+        private async Task<byte[]> GetSerializedResponseData(ViewModel viewModel)
+        {
+            return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(viewModel));
+        }
+
+        private byte[] GetSerializedResponseData(Response response)
+        {
+            return GetSerializedResponseData(response.Model);
+        }
+
+        private byte[] GetSerializedResponseData(object data)
+        {
+            return Serializer.Serialize(data);
+        }
+
 
         protected void Stop()
         {
