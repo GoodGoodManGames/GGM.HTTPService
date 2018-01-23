@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace GGM.Web.Router
+namespace GGM.Web
 {
     public class Response
     {
         public static Response SetBody(object model) => new Response(model);
         
-        public object Model { get;  set; }
-        public Dictionary<string, string> Header { get; set; } = new Dictionary<string, string>();
+        public object Model { get; }
+        public Dictionary<string, string> Header { get; } = new Dictionary<string, string>();
 
         public Response(object model) : this(model, new Dictionary<string, string>())
         {
@@ -20,7 +20,7 @@ namespace GGM.Web.Router
         public Response(object model, IEnumerable<KeyValuePair<string, string>> header)
         {
             Model = model;
-            SetHeader(header);
+            Header = SetHeaders(header).Header;
         }
         
         public Response SetHeader(string key, string value)
@@ -29,19 +29,11 @@ namespace GGM.Web.Router
             return this;
         }
 
-        private void SetHeader(IEnumerable<KeyValuePair<string, string>> keyValuePairs)
-        {
-            
-            foreach (var keyValuePair in keyValuePairs)
-                Header.Add(keyValuePair.Key, keyValuePair.Value);
-        }
-
         public Response SetHeaders(IEnumerable<KeyValuePair<string, string>> keyValuePairs)
         {
             foreach(var keyValuePair in keyValuePairs)
-            {
                 Header.Add(keyValuePair.Key, keyValuePair.Value);
-            }
+
             return this;
         }
     }
