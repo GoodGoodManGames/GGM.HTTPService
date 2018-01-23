@@ -73,25 +73,30 @@ namespace GGM.Web
                     if (result != null)
                     {
                         byte[] responseBody = null;
-                        switch (result)
-                        {
-                            case string resultText:
-                                responseBody = Encoding.UTF8.GetBytes(resultText);
-                                break;
-                            case ViewModel viewModel:
-                                responseBody = Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(viewModel));
-                                break;
-                            case object data:
-                                responseBody = Serializer.Serialize(data);
-                                break;
-                        }
-
-
+                        responseBody = await GetSerializedResponseData(result, response);
+                        
                         if (responseBody != null)
                             await outputStream.WriteAsync(responseBody, 0, responseBody.Length);
                     }
                 }
             }
+        }
+
+        private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse Response = null)
+        {
+            if (data is string)
+                return Encoding.UTF8.GetBytes(data as string);
+            else if (data is ViewModel)
+                return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(data as ViewModel));
+            else if (data is Response)
+            {
+                var response = data as Response;
+                foreach (var key in response.Header.Keys)
+                    Response.AppendHeader(key, response.Header[key]);
+                return await GetSerializedResponseData(response.Model);
+            }
+            else
+                return Serializer.Serialize(data);
         }
 
         protected void Stop()
