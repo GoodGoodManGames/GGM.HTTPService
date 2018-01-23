@@ -37,8 +37,8 @@ namespace DemoServer.Controller
         [Get("/response")]
         public Response GetResponse()
         {
-            return Response.SetBody(new TestModel("asd", 123))
-                        .SetHeader("GoodGoodMan_will", "Succeed")
+            return Response.SetBody(ViewModel.Get("index").SetModel(new TestModel("GoodGoodMan is Woman", 10)))
+                        .SetHeader("GoodGoodMan_is", "Woman")
                         .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
         }
     }

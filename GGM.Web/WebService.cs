@@ -74,27 +74,8 @@ namespace GGM.Web
                     if (result != null)
                     {
                         byte[] responseBody = null;
-                        switch (result)
-                        {
-                            case string resultText:
-                                responseBody = GetSerializedResponseData(resultText);
-                                break;
-                            case ViewModel viewModel:
-                                responseBody = await GetSerializedResponseData(viewModel);
-                                break;
-                            case Response bodyWithHeader:
-                                var header = bodyWithHeader.Header;
-                                var body = bodyWithHeader.Model;
-                                foreach (var key in header.Keys)
-                                    response.AddHeader(key, header[key]);
-                                responseBody = GetSerializedResponseData(body);
-                                break;
-                            case object data:
-                                responseBody = GetSerializedResponseData(data);
-                                break;
-                        }
-
-
+                        responseBody = await GetSerializedResponseData(result, response);
+                        
                         if (responseBody != null)
                             await outputStream.WriteAsync(responseBody, 0, responseBody.Length);
                     }
@@ -102,24 +83,21 @@ namespace GGM.Web
             }
         }
 
-        private byte[] GetSerializedResponseData(string resultText)
+        private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse Response = null)
         {
-            return Encoding.UTF8.GetBytes(resultText);
-        }
-
-        private async Task<byte[]> GetSerializedResponseData(ViewModel viewModel)
-        {
-            return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(viewModel));
-        }
-
-        private byte[] GetSerializedResponseData(Response response)
-        {
-            return GetSerializedResponseData(response.Model);
-        }
-
-        private byte[] GetSerializedResponseData(object data)
-        {
-            return Serializer.Serialize(data);
+            if (data is string)
+                return Encoding.UTF8.GetBytes(data as string);
+            else if (data is ViewModel)
+                return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(data as ViewModel));
+            else if (data is Response)
+            {
+                var response = data as Response;
+                foreach (var key in response.Header.Keys)
+                    Response.AppendHeader(key, response.Header[key]);
+                return await GetSerializedResponseData(response.Model);
+            }
+            else
+                return Serializer.Serialize(data);
         }
 
 
