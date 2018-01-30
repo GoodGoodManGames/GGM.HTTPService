@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 using GGM.Web.Router.Attribute;
 using GGM.Web.Router.Util;
 using GGM.Web.View;
+using GGM.Serializer;
 using static System.Reflection.Emit.OpCodes;
+using System.Text;
 
 namespace GGM.Web.Router
 {
     public class DefaultRouter : IRouter
     {
-        public delegate object RouterCallback(HttpListenerRequest request, RouteInfo routeInfo);
+        public delegate object RouterCallback(HttpListenerRequest request, RouteInfo routeInfo, ISerializer serializer);
 
         protected List<RouteInfo> RouteInfos { get; } = new List<RouteInfo>();
 
@@ -55,7 +57,7 @@ namespace GGM.Web.Router
         ///     요청을 처리하여 매칭되는 RouterCallback을 호출합니다.
         /// </summary>
         /// <returns>Response에 클라에 보내질 문자열.</returns>
-        public object Route(HttpListenerRequest request)
+        public object Route(HttpListenerRequest request, ISerializer serializer)
         {
             var uri = request.Url;
             var url = uri.AbsolutePath;
@@ -71,7 +73,7 @@ namespace GGM.Web.Router
 
             if (targetRouteInfo == null)
                 return "wrong path";
-            return targetRouteInfo.RouterCallback(request, targetRouteInfo);
+            return targetRouteInfo.RouterCallback(request, targetRouteInfo, serializer);
         }
 
         #region CreateRouterCallback
@@ -84,7 +86,7 @@ namespace GGM.Web.Router
             var dynamicMethod = new DynamicMethod(
                 $"RouterCallback+{methodInfo.Name}:{Guid.NewGuid()}"
                 , typeof(string)
-                , new[] {typeof(HttpListenerRequest), typeof(RouteInfo)}
+                , new[] {typeof(HttpListenerRequest), typeof(RouteInfo), typeof(ISerializer)}
                 , GetType());
             var il = dynamicMethod.GetILGenerator();
             il.Emit(Ldarg_1); // [RouteInfo]
@@ -106,27 +108,77 @@ namespace GGM.Web.Router
 
             foreach (var parameterInfo in parameterInfos)
             {
-                if (parameterInfo.ParameterType == typeof(HttpListenerRequest))
+                var parameterType = parameterInfo.ParameterType;
+
+                if (parameterType == typeof(HttpListenerRequest))
                 {
                     il.Emit(Ldarg_0); // HttpListenerRequest 로드
                     continue;
                 }
 
-                var pathAttribute = parameterInfo.GetCustomAttribute<PathAttribute>();
-                Debug.Assert(pathAttribute != null);
+                if (parameterInfo.IsDefined(typeof(BodyAttribute)))
+                {
+                    var methodAttribute = methodInfo.GetCustomAttribute<RouteAttribute>();
+                    if (methodAttribute is GetAttribute ||
+                        methodAttribute is DeleteAttribute)
+                        throw new System.Exception("Doesn't have BodyData");
 
-                il.Emit(Ldloc, declarePathValues); // { [PathValues] }
-                il.Emit(Ldstr, pathAttribute.Path); // { [PathValues] [Path] }
-                il.Emit(Call, typeof(DictionaryUtil)
-                    .GetMethod(nameof(DictionaryUtil.GetValue))
-                    .MakeGenericMethod(typeof(string), typeof(string))); // { [Value] }
+                    il.Emit(Ldarg_0); // [HttpListenerRequest]
+                    il.Emit(Call, typeof(DefaultRouter).GetMethod(nameof(DefaultRouter.GetRequestBody))); // [requestBody]
+                    var requestBody = il.DeclareLocal(typeof(byte[]));
+                    il.Emit(Stloc, requestBody);
+
+                    if (parameterType == typeof(byte[]))
+                        il.Emit(Ldloc, requestBody); // [requestBody]
+                    else if (parameterType == typeof(string))
+                    {
+                        il.Emit(Call, typeof(Encoding).GetProperty(nameof(Encoding.UTF8)).GetGetMethod()); // [Encoding]
+                        il.Emit(Ldloc, requestBody); // [Encoding] [requestBody]
+                        il.Emit(Call, typeof(Encoding).GetMethod(nameof(Encoding.GetString), new Type[] { typeof(byte[]) })); // [BodyToString]
+                    }
+                    else
+                    {
+                        if (parameterType.IsValueType)
+                            throw new NotImplementedException();
+                        il.Emit(Ldarg_2); // [GenericSerializer]
+                        il.Emit(Ldloc, requestBody); // [GenericSerializer] [requestBody]
+                        il.Emit(Call, typeof(ISerializer).GetMethod(nameof(ISerializer.Deserialize)).MakeGenericMethod(parameterType)); // [BodyToObject]
+                    }
+                    continue;
+                }
+
+
+                if (parameterInfo.IsDefined(typeof(PathAttribute)))
+                {
+                    var pathAttribute = parameterInfo.GetCustomAttribute<PathAttribute>();
+                    Debug.Assert(pathAttribute != null);
+
+                    il.Emit(Ldloc, declarePathValues); // { [PathValues] }
+                    il.Emit(Ldstr, pathAttribute.Path); // { [PathValues] [Path] }
+                    il.Emit(Call, typeof(DictionaryUtil)
+                        .GetMethod(nameof(DictionaryUtil.GetValue))
+                        .MakeGenericMethod(typeof(string), typeof(string))); // { [Value] }
+                }
             }
 
             il.Emit(Call, methodInfo); // [result]
             il.Emit(Ret);
+
             return dynamicMethod.CreateDelegate(typeof(RouterCallback)) as RouterCallback;
         }
 
         #endregion CreateRouterCallback
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte[] GetRequestBody(HttpListenerRequest request)
+        {
+            using (System.IO.Stream inputStream = request.InputStream)
+            {
+                var requestBody = new byte[request.ContentLength64];
+                inputStream.Read(requestBody, 0, (int)request.ContentLength64);
+                return requestBody;
+            }
+        }
+        
     }
 }

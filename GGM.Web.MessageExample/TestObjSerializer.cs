@@ -1,9 +1,11 @@
 ﻿using System;
 using Google.Protobuf;
+using GGM.Web.MessageExample;
+using GGM.Serializer;
 
-namespace GGM.Serializer.Protobuf
+namespace GGM.Web.MessageExample
 {
-    public class ProtobufSerializer : ISerializer
+    public class TestObjSerializer : ISerializer
     {
         public T Deserialize<T>(byte[] bytes) where T : new()
         {
@@ -16,9 +18,10 @@ namespace GGM.Serializer.Protobuf
 
         public byte[] Serialize<T>(T data) where T : new()
         {
-            if(!(data is IMessage serializeableData))
+            if (!(data is IMessage serializeableData))
                 throw new ArgumentException("Serializer가 지원하지 않는 클래스입니다.");
             return serializeableData.ToByteArray();
         }
+
     }
 }

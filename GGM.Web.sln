@@ -1,19 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Web", "GGM.Web\GGM.Web.csproj", "{D3C69458-C346-4CDE-97D9-4F5B22BEBC56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Web", "GGM.Web\GGM.Web.csproj", "{D3C69458-C346-4CDE-97D9-4F5B22BEBC56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{DCB28B24-B5AF-41D0-875F-2233696A7C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{DCB28B24-B5AF-41D0-875F-2233696A7C29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoServer", "DemoServer\DemoServer.csproj", "{5DF10FB0-D6AD-4033-8A3E-C8BC23FDE8CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoServer", "DemoServer\DemoServer.csproj", "{5DF10FB0-D6AD-4033-8A3E-C8BC23FDE8CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.TempleteResolver.Razor", "GGM.TempleteResolver.Razor\GGM.TempleteResolver.Razor.csproj", "{CA7B4D2A-1BC1-42A2-8189-6D8E848AB16F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.TempleteResolver.Razor", "GGM.TempleteResolver.Razor\GGM.TempleteResolver.Razor.csproj", "{CA7B4D2A-1BC1-42A2-8189-6D8E848AB16F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Serializer", "GGM.Serializer\GGM.Serializer.csproj", "{B1225A5C-F262-4AD6-B185-3582A5432798}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Serializer", "GGM.Serializer\GGM.Serializer.csproj", "{B1225A5C-F262-4AD6-B185-3582A5432798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Serializer.Protobuf", "GGM.Serializer.Protobuf\GGM.Serializer.Protobuf.csproj", "{192BE8B7-5183-41D0-8722-0B20F42A691E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Serializer.Protobuf", "GGM.Serializer.Protobuf\GGM.Serializer.Protobuf.csproj", "{192BE8B7-5183-41D0-8722-0B20F42A691E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Web.MessageExample", "GGM.Web.MessageExample\GGM.Web.MessageExample.csproj", "{955E1835-C443-4076-911D-634DF531036C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{955E1835-C443-4076-911D-634DF531036C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955E1835-C443-4076-911D-634DF531036C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955E1835-C443-4076-911D-634DF531036C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955E1835-C443-4076-911D-634DF531036C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

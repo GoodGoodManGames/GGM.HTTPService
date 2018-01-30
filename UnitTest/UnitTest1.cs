@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UnitTest.Controller;
 using GGM.Web;
 using GGM.Web.Router;
+using GGM.Web.MessageExample;
 using Xunit;
 
 namespace UnitTest
@@ -12,7 +13,7 @@ namespace UnitTest
         [Fact]
         public async Task Test1()
         {
-            var service = new WebService(null, null, new[] { "http://localhost:8000/" }, new TestController());
+            var service = new WebService(null, new TestObjFactory(), new[] { "http://localhost:8002/" }, new TestController());
             await service.Boot(new string[] { });
         }
 

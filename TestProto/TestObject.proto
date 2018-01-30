@@ -1,0 +1,6 @@
+syntax = "proto3";
+package TestObject;
+
+message TestObj{
+    string name = 2;
+}

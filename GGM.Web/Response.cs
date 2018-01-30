@@ -20,7 +20,7 @@ namespace GGM.Web
         public Response(object model, IEnumerable<KeyValuePair<string, string>> header)
         {
             Model = model;
-            Header = SetHeaders(header).Header;
+            SetHeaders(header);
         }
 
         public Response SetHeader(string key, string value)

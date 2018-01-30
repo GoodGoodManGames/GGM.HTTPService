@@ -26,5 +26,23 @@ namespace UnitTest.Controller
         {
             return $"Get {userID} : {name}";
         }
+
+        [Post("/post1")]
+        public string TestPost([Body]byte[] Bytes)
+        {
+            return Bytes[0].ToString();
+        }
+
+        [Post("/post2")]
+        public string TestPost([Body]string String)
+        {
+            return String;
+        }
+
+        [Post("/post3")]
+        public string TestPost([Body]GGM.Web.MessageExample.TestObj testObj)
+        {
+            return testObj.Name;
+        }
     }
 }

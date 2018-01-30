@@ -8,6 +8,7 @@ using GGM.Serializer;
 using GGM.Web.Router;
 using GGM.Web.View;
 
+
 namespace GGM.Web
 {
     /// <summary>
@@ -33,6 +34,8 @@ namespace GGM.Web
                 Serializer = serializerFactory.Create();
         }
 
+        
+
         public Guid ID { get; set; }
         public IRouter Router { get; }
         public ITempleteResolver TempleteResolver { get; }
@@ -40,7 +43,7 @@ namespace GGM.Web
         protected object[] Controllers { get; }
         protected HttpListener HttpListener { get; }
         private bool mIsRunning = false;
-
+        
         /// <summary>
         ///     WebService를 시작합니다.
         /// </summary>
@@ -59,7 +62,7 @@ namespace GGM.Web
                 object result;
                 try
                 {
-                    result = Router.Route(context.Request);
+                    result = Router.Route(context.Request, Serializer);
                 }
                 catch (Exception e)
                 {
@@ -84,8 +87,9 @@ namespace GGM.Web
 
         private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse Response = null)
         {
-            if (data is string)
+            if (data is string) {
                 return Encoding.UTF8.GetBytes(data as string);
+            }
             else if (data is ViewModel)
                 return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(data as ViewModel));
             else if (data is Response)
