@@ -1,1 +1,0 @@
-protoc.exe -I=. --csharp_out=. .\TestObject.proto
