@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using GGM.Serializer;
+using System.Net;
 
 namespace GGM.Web.Router
 {
@@ -17,6 +18,6 @@ namespace GGM.Web.Router
         /// </summary>
         /// <param name="request">해당 루틴의 request</param>
         /// <returns>응답에 보내질 내용</returns>
-        object Route(HttpListenerRequest request);
+        object Route(HttpListenerRequest request, ISerializer serializer);
     }
 }
