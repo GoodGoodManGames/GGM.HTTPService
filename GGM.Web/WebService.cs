@@ -87,9 +87,8 @@ namespace GGM.Web
 
         private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse Response = null)
         {
-            if (data is string) {
+            if (data is string)
                 return Encoding.UTF8.GetBytes(data as string);
-            }
             else if (data is ViewModel)
                 return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(data as ViewModel));
             else if (data is Response)
