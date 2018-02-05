@@ -155,23 +155,24 @@ namespace GGM.Web.Router
                     var HttpHeaders = il.DeclareLocal(typeof(System.Collections.Specialized.NameValueCollection));
                     il.Emit(Stloc, HttpHeaders);
 
-                    string requestHeader = parameterInfo.GetCustomAttribute<RequestHeaderAttribute>().RequestHeader;
+                    string headerKey = parameterInfo.GetCustomAttribute<RequestHeaderAttribute>().RequestHeader;
 
                     il.Emit(Ldloc, HttpHeaders); // [HttpRequestHeaders]
-                    il.Emit(Ldstr, requestHeader); // [HttpRequestHeadersKeys] [TargetRequestHeader]
+                    il.Emit(Ldstr, headerKey); // [HttpRequestHeadersKeys] [TargetRequestHeader]
                     il.Emit(Callvirt, typeof(System.Collections.Specialized.NameValueCollection).GetMethod(nameof(System.Collections.Specialized.NameValueCollection.Get), new Type[] { typeof(string) })); // [TagetHeaderValue]
                     var headerValue = il.DeclareLocal(typeof(string));
                     il.Emit(Stloc, headerValue);
 
                     il.Emit(Ldloc, headerValue); // [TargetHeaderValue]
                     il.Emit(Brtrue, notNull);
+
                     il.Emit(Ldstr, "There is no Key in RequestHeader"); // [exceptionString]
                     var exceptionConstructorInfo = typeof(System.Exception).GetConstructor(new Type[] { typeof(string) }); // [exceptionString]
                     il.Emit(Newobj, exceptionConstructorInfo); // [exceptionString] [ExceptionConstructor]
                     il.Emit(Throw);
 
                     il.MarkLabel(notNull);
-                    il.Emit(Ldloc, headerValue);
+                    il.Emit(Ldloc, headerValue); // [TargetHeaderValue]
                 }
 
                 if (parameterInfo.IsDefined(typeof(PathAttribute)))
