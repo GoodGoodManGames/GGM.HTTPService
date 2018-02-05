@@ -40,7 +40,13 @@ namespace DemoServer.Controller
                         .SetHeader("Header", "Test")
                         .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
         }
-      
+
+        [Get("/requestHeaderTest")]
+        public string RequestHeader([RequestHeader("Host")]string value)
+        {
+            return value;
+        }
+
         [Post("/BodyToByte")]
         public string BodyToByte([Body]byte[] bytes)
         {
