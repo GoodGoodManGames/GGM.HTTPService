@@ -87,13 +87,12 @@ namespace GGM.Web
 
         private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse Response = null)
         {
-            if (data is string)
-                return Encoding.UTF8.GetBytes(data as string);
-            else if (data is ViewModel)
-                return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(data as ViewModel));
-            else if (data is Response)
+            if (data is string message)
+                return Encoding.UTF8.GetBytes(message);
+            else if (data is ViewModel viewModel)
+                return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(viewModel));
+            else if (data is Response response)
             {
-                var response = data as Response;
                 foreach (var key in response.Header.Keys)
                     Response.AppendHeader(key, response.Header[key]);
                 return await GetSerializedResponseData(response.Model);
