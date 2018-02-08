@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GGM.Web.Router.Util
 {
-    public static class HttpListenerRequestUtil
+    public static class HttpListenerRequestExtension
     {
         public static HTTPMethod GetHTTPMethod(this HttpListenerRequest self)
         {
