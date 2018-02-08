@@ -64,6 +64,13 @@ namespace DemoServer.Controller
         {
             return testObj.Name;
         }
+        
+        [Get("/aync_test")]
+        public async Task<string> AsyncTest()
+        {
+            await Task.Delay(6000);
+            return "esresrsre";
+        }
     }
 
     public class TestModel

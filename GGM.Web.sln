@@ -11,6 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Serializer", "GGM.Seria
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Serializer.Protobuf", "GGM.Serializer.Protobuf\GGM.Serializer.Protobuf.csproj", "{192BE8B7-5183-41D0-8722-0B20F42A691E}"
 EndProject
+<<<<<<< HEAD
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoServer", "DemoServer\DemoServer.csproj", "{A7ED851E-015B-440A-A8FF-56913B0CC024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Web.MessageExample", "GGM.Web.MessageExample\GGM.Web.MessageExample.csproj", "{BC4AEFE1-3018-4EEA-B9AC-C7FE876B8DDD}"
+EndProject
+>>>>>>> 9409cebf209f2b3614b73f0e92e3865c78d5cd5d
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +40,17 @@ Global
 		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{192BE8B7-5183-41D0-8722-0B20F42A691E}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
+=======
+		{A7ED851E-015B-440A-A8FF-56913B0CC024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7ED851E-015B-440A-A8FF-56913B0CC024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7ED851E-015B-440A-A8FF-56913B0CC024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7ED851E-015B-440A-A8FF-56913B0CC024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC4AEFE1-3018-4EEA-B9AC-C7FE876B8DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4AEFE1-3018-4EEA-B9AC-C7FE876B8DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4AEFE1-3018-4EEA-B9AC-C7FE876B8DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4AEFE1-3018-4EEA-B9AC-C7FE876B8DDD}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> 9409cebf209f2b3614b73f0e92e3865c78d5cd5d
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
