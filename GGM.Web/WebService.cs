@@ -89,14 +89,10 @@ namespace GGM.Web
             if (data is string message)
                 return Encoding.UTF8.GetBytes(message);
             else if (data is ViewModel viewModel)
-<<<<<<< HEAD
-                return Encoding.UTF8.GetBytes(await TempleteResolver?.Resolve(viewModel));
-=======
             {
                 var bodyTask = TempleteResolver?.Resolve(viewModel);
                 return Encoding.UTF8.GetBytes(await bodyTask.ConfigureAwait(false));
             }
->>>>>>> 9409cebf209f2b3614b73f0e92e3865c78d5cd5d
             else if (data is Response response)
             {
                 foreach (var key in response.Header.Keys)
