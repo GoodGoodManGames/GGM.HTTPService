@@ -6,13 +6,14 @@ using GGM.Context.Attribute;
 
 namespace GGM.Web.View.Razor
 {
-    [Managed(ManagedType.Singleton)]
-    public class RazorTemplateResolverFactory : ITempleteResolverFactory
+    [Configuration]
+    public class RazorTemplateResolverFactory
     {
         [Config("TempleteResolver.Path")]
         public string ConfigPath { get; set; }
 
-        public ITempleteResolver Create()
+        [Managed(ManagedType.Singleton)]
+        public RazorTemplateResolver CreateResolver()
         {   
             string path;
             if (ConfigPath == null)
@@ -22,7 +23,7 @@ namespace GGM.Web.View.Razor
             }
 
             path = Path.IsPathRooted(ConfigPath) ? ConfigPath : Path.Combine(Directory.GetCurrentDirectory(), ConfigPath);
-            return new RazorTempleteResolver(path);
+            return new RazorTemplateResolver(path);
         }
             
     }

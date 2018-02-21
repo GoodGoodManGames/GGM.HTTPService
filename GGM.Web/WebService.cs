@@ -17,7 +17,7 @@ namespace GGM.Web
     /// </summary>
     public class WebService : IService
     {
-        public WebService(ITempleteResolverFactory resolverFactory, ISerializerFactory serializerFactory,
+        public WebService(ITempleteResolver resolver, ISerializer serializer,
             string[] prefixes, params object[] controllers)
         {
             Router = new DefaultRouter();
@@ -29,10 +29,8 @@ namespace GGM.Web
             foreach (var prefix in prefixes)
                 HttpListener.Prefixes.Add(prefix);
 
-            if (resolverFactory != null)
-                TempleteResolver = resolverFactory.Create();
-            if (serializerFactory != null)
-                Serializer = serializerFactory.Create();
+            TempleteResolver = resolver;
+            Serializer = serializer;
         }
 
 

@@ -3,10 +3,11 @@ using GGM.Context.Attribute;
 
 namespace GGM.Serializer.Protobuf
 {
-    [Managed(ManagedType.Singleton)]
-    public class ProtobufSerializerFactory : ISerializerFactory
+    [Configuration]
+    public class ProtobufSerializerFactory 
     {
-        public ISerializer Create()
+        [Managed(ManagedType.Singleton)]
+        public ProtobufSerializer CreateProtobufSerializer()
         {
             return new ProtobufSerializer();
         }

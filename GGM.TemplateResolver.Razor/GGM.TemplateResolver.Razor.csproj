@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Version>1.1.0</Version>
-    <Description>GoodGoodManGames에서 사용하는 Serializer의 인터페이스입니다.</Description>
+    <Description>WebService의 TemplateResolver의 Razor 구현체입니다.</Description>
     <Copyright>
     </Copyright>
     <PackageLicenseUrl>https://github.com/GoodGoodManGames/GGM.Application/blob/master/LICENSE</PackageLicenseUrl>
@@ -14,4 +14,7 @@
     <PackageTags>GGM</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GGM.Web\GGM.Web.csproj" />
+  </ItemGroup>
 </Project>

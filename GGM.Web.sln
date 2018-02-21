@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Web", "GGM.Web\GGM.Web.csproj", "{D3C69458-C346-4CDE-97D9-4F5B22BEBC56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.TempleteResolver.Razor", "GGM.TempleteResolver.Razor\GGM.TempleteResolver.Razor.csproj", "{CA7B4D2A-1BC1-42A2-8189-6D8E848AB16F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.TemplateResolver.Razor", "GGM.TemplateResolver.Razor\GGM.TemplateResolver.Razor.csproj", "{CA7B4D2A-1BC1-42A2-8189-6D8E848AB16F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GGM.Serializer", "GGM.Serializer\GGM.Serializer.csproj", "{B1225A5C-F262-4AD6-B185-3582A5432798}"
 EndProject

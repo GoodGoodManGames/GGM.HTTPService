@@ -2,6 +2,9 @@
 using DemoServer.Service;
 using GGM.Application;
 using System.IO;
+using System.Reflection;
+using GGM.Serializer.Protobuf;
+using GGM.Web.View.Razor;
 
 namespace DemoServer
 {
