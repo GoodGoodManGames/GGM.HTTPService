@@ -1,8 +1,6 @@
-﻿using GGM.Web.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace GGM.Web
 {
@@ -12,13 +10,17 @@ namespace GGM.Web
 
         public object Model { get; }
         public Dictionary<string, string> Header { get; } = new Dictionary<string, string>();
+        public int StatusCode { get; private set; } = 200;
 
-        public Response(object model) : this(model, new Dictionary<string, string>())
-        {
-        }
+        public Response(object model) : this(model, new Dictionary<string, string>()) { }
 
         public Response(object model, IEnumerable<KeyValuePair<string, string>> header)
         {
+            if(model == null)
+                throw new ArgumentNullException(nameof(model));
+            if(header == null)
+                throw new ArgumentNullException(nameof(header));
+            
             Model = model;
             SetHeaders(header);
         }
@@ -31,9 +33,18 @@ namespace GGM.Web
 
         public Response SetHeaders(IEnumerable<KeyValuePair<string, string>> keyValuePairs)
         {
+            if(keyValuePairs == null)
+                throw new ArgumentNullException(nameof(keyValuePairs));
+            
             foreach (var keyValuePair in keyValuePairs)
                 Header.Add(keyValuePair.Key, keyValuePair.Value);
 
+            return this;
+        }
+
+        public Response SetStatusCode(HttpStatusCode statusCode)
+        {
+            StatusCode = (int) statusCode;
             return this;
         }
     }
