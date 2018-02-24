@@ -46,7 +46,7 @@ namespace GGM.Web
         ///     WebService를 시작합니다.
         /// </summary>
         public virtual async Task Boot(string[] arguments)
-        {
+        {   
             if (TempleteResolver == null)
                 Console.WriteLine($"{GetType().Name + ID}의 TempleteResolver가 지정되지 않았습니다.");
             if (Serializer == null)
@@ -82,9 +82,11 @@ namespace GGM.Web
             }
         }
 
-        private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse httpResponse = null)
+        private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse httpResponse)
         {
-            if (data is string message)
+            if (data is null)
+                throw new System.Exception("Data can't be NULL");
+            else if (data is string message)
                 return Encoding.UTF8.GetBytes(message);
             else if (data is ViewModel viewModel)
             {
@@ -95,12 +97,13 @@ namespace GGM.Web
             {
                 foreach (var key in response.Header.Keys)
                     httpResponse.AppendHeader(key, response.Header[key]);
-                return await GetSerializedResponseData(response.Model).ConfigureAwait(false);
+                httpResponse.StatusCode = response.StatusCode;
+                return await GetSerializedResponseData(response.Model, httpResponse).ConfigureAwait(false);
             }
             else if (data is Task task)
             {
                 await task.ConfigureAwait(false);
-                return await GetSerializedResponseData(TaskUtil.GetResultFromTask(task)).ConfigureAwait(false);
+                return await GetSerializedResponseData(TaskUtil.GetResultFromTask(task), httpResponse).ConfigureAwait(false);
             }
             else
                 return Serializer.Serialize(data);
