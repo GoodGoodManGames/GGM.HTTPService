@@ -84,7 +84,9 @@ namespace GGM.Web
 
         private async Task<byte[]> GetSerializedResponseData(object data, HttpListenerResponse httpResponse)
         {
-            if (data is string message)
+            if (data is null)
+                throw new System.Exception("Data can't be NULL");
+            else if (data is string message)
                 return Encoding.UTF8.GetBytes(message);
             else if (data is ViewModel viewModel)
             {
