@@ -41,13 +41,13 @@ namespace DemoServer.Controller
                            .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
         }
         
-        [Get("/response403")]
-        public Response GetResponse403()
+        [Get("/response401")]
+        public Response GetResponse401()
         {
             return Response.SetBody(ViewModel.Get("index").SetModel(new TestModel("ViewModelTest", 10)))
                            .SetHeader("Header", "Test")
                            .SetHeaders(new Dictionary<string, string>())
-                           .SetStatusCode(HttpStatusCode.Forbidden);
+                           .SetStatusCode(HttpStatusCode.Unauthorized);
         }
 
         [Get("/requestHeaderTest")]
