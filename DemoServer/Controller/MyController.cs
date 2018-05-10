@@ -1,6 +1,4 @@
-﻿using System;
-using System.Dynamic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using GGM.Web;
 using GGM.Web.Router.Attribute;
@@ -37,8 +35,17 @@ namespace DemoServer.Controller
         public Response GetResponse()
         {
             return Response.SetBody(ViewModel.Get("index").SetModel(new TestModel("ViewModelTest", 10)))
-                        .SetHeader("Header", "Test")
-                        .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
+                           .SetHeader("Header", "Test")
+                           .SetHeaders(new Dictionary<string, string>());//IEnumerable<KeyValuePair<TKey, TValue>>
+        }
+        
+        [Get("/response401")]
+        public Response GetResponse401()
+        {
+            return Response.SetBody(ViewModel.Get("index").SetModel(new TestModel("ViewModelTest", 10)))
+                           .SetHeader("Header", "Test")
+                           .SetHeaders(new Dictionary<string, string>())
+                           .SetStatusCode(HttpStatusCode.Unauthorized);
         }
 
         [Get("/requestHeaderTest")]

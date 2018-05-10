@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using GGM.Web.Router.Exception;
@@ -42,8 +41,8 @@ namespace GGM.Web.Router
 
             var matches = Regex.Matches(url);
             var matchMap = new Dictionary<string, string>(matches.Count);
-            
-            var match = matches.First();
+
+            var match = matches[0];
             var group = match.Groups;
 
             // Groups의 첫번째 요소는 전체 매칭된 값이므로 무시하여야 한다.

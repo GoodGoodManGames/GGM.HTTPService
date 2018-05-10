@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GGM.Serializer
+﻿namespace GGM.Serializer
 {
     public interface ISerializer
     {

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using DemoServer.Controller;
 using GGM.Context.Attribute;
 using GGM.Web;
-using GGM.Web.Router;
-using GGM.Application.Attribute;
-using GGM.Serializer;
 using GGM.Serializer.Protobuf;
 using GGM.Web.View.Razor;
 
@@ -16,8 +11,8 @@ namespace DemoServer.Service
     public class MyWebService : WebService
     {
         [AutoWired]
-        public MyWebService(MyController myController, RazorTemplateResolverFactory resolverFactory, ProtobufSerializerFactory serializerFactory) 
-            : base(resolverFactory, serializerFactory, myController)
+        public MyWebService(MyController myController, RazorTemplateResolver resolver, ProtobufSerializer serializer) 
+            : base(resolver, serializer, myController)
         {
         }
 

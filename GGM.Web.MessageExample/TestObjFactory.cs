@@ -9,7 +9,7 @@ using GGM.Serializer;
 namespace GGM.Web.MessageExample
 {
     [Managed(ManagedType.Singleton)]
-    public class TestObjFactory : ISerializerFactory
+    public class TestObjFactory
     {
         public ISerializer Create() => new TestObjSerializer();
     }

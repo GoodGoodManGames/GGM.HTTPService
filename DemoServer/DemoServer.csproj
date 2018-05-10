@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\GGM.Serializer.Protobuf\GGM.Serializer.Protobuf.csproj" />
-    <ProjectReference Include="..\GGM.TempleteResolver.Razor\GGM.TempleteResolver.Razor.csproj" />
+    <ProjectReference Include="..\GGM.TemplateResolver.Razor\GGM.TemplateResolver.Razor.csproj" />
     <ProjectReference Include="..\GGM.Web.MessageExample\GGM.Web.MessageExample.csproj" />
     <ProjectReference Include="..\GGM.Web\GGM.Web.csproj" />
   </ItemGroup>

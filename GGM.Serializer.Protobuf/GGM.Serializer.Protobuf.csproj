@@ -1,12 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
+    <Version>1.1.0</Version>
+    <Description>GGM.Serializer의 Protobuf 구현체입니다.</Description>
+    <Copyright>
+    </Copyright>
+    <PackageLicenseUrl>https://github.com/GoodGoodManGames/GGM.Application/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/GoodGoodManGames/GGM.Web</PackageProjectUrl>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/32609950?s=200&amp;v=4</PackageIconUrl>
+    <RepositoryType>
+    </RepositoryType>
+    <RepositoryUrl>https://github.com/GoodGoodManGames/GGM.Web</RepositoryUrl>
+    <PackageTags>GGM</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\GGM.Serializer\GGM.Serializer.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GGMContext" Version="1.5.1" />
+    <PackageReference Include="GGMContext" Version="2.0.2" />
     <PackageReference Include="Google.Protobuf" Version="3.5.1" />
   </ItemGroup>
 </Project>

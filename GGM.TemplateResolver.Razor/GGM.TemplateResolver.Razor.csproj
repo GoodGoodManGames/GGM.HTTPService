@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <Version>1.1.5</Version>
-    <Description>GGM.Application에서 이용할 수 있는 WebSerivce입니다.</Description>
+    <Version>1.1.0</Version>
+    <Description>WebService의 TemplateResolver의 Razor 구현체입니다.</Description>
     <Copyright>
     </Copyright>
     <PackageLicenseUrl>https://github.com/GoodGoodManGames/GGM.Application/blob/master/LICENSE</PackageLicenseUrl>
@@ -15,8 +15,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GGM.Application" Version="1.6.3" />
-    <PackageReference Include="GGM.Serializer" Version="1.1.3" />
-    <PackageReference Include="GGMContext" Version="2.0.2" />
+    <PackageReference Include="RazorLight" Version="2.0.0-beta1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GGM.Web\GGM.Web.csproj" />
   </ItemGroup>
 </Project>
