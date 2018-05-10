@@ -1,26 +1,23 @@
-﻿using System.Text.RegularExpressions;
-using GGM.Web.Router.Attribute;
-
-namespace GGM.Web.Router
+﻿namespace GGM.Web.Router
 {
     public class RouteInfo
     {
-        public RouteInfo(object controller, HTTPMethod method, PathToRegex pathToRoute, DefaultRouter.RouterCallback routerCallback)
+        public RouteInfo(object controller, HTTPMethodType methodType, PathToRegex pathToRoute, DefaultRouter.RouterCallback routerCallback)
         {
             Controller = controller;
-            Method = method;
+            MethodType = methodType;
             PathToRegex = pathToRoute;
             RouterCallback = routerCallback;
         }
         
         public object Controller { get; }
-        public HTTPMethod Method { get; }
+        public HTTPMethodType MethodType { get; }
         public PathToRegex PathToRegex { get; }
         public DefaultRouter.RouterCallback RouterCallback { get; }
 
-        public bool IsMatched(HTTPMethod method, string url)
+        public bool IsMatched(HTTPMethodType methodType, string url)
         {
-            return Method == method && PathToRegex.IsMatched(url);
+            return MethodType == methodType && PathToRegex.IsMatched(url);
         }
     }
 }

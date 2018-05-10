@@ -6,16 +6,15 @@ using System.Net;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using GGM.Web.Router.Attribute;
-using GGM.Web.Router.Util;
-using GGM.Web.View;
-using GGM.Serializer;
-using static System.Reflection.Emit.OpCodes;
 using System.Text;
+using static System.Reflection.Emit.OpCodes;
 
 namespace GGM.Web.Router
 {
+    using Serializer;
+    using Util;
+    using Attribute;
+    
     public class DefaultRouter : IRouter
     {
         public delegate object RouterCallback(HttpListenerRequest request, RouteInfo routeInfo, ISerializer serializer);
@@ -41,7 +40,7 @@ namespace GGM.Web.Router
                 var callback = CreateDelegate(methodInfo, methodInfo.GetParameters());
                 Debug.Assert(callback != null);
 
-                var httpMethod = controlInfo.RouteAttribute.HTTPMethod;
+                var httpMethod = controlInfo.RouteAttribute.HttpMethodType;
                 var pattern = controlInfo.RouteAttribute.URLPattern;
                 var pathToRegex = new PathToRegex(pattern);
                 RouteInfos.Add(new RouteInfo(controller, httpMethod, pathToRegex, callback));
@@ -61,12 +60,12 @@ namespace GGM.Web.Router
         {
             var uri = request.Url;
             var url = uri.AbsolutePath;
-            HTTPMethod method = request.GetHTTPMethod();
+            HTTPMethodType methodType = request.GetHTTPMethod();
 
             RouteInfo targetRouteInfo = null;
             foreach (var routeInfo in RouteInfos)
             {
-                if (!routeInfo.IsMatched(method, url))
+                if (!routeInfo.IsMatched(methodType, url))
                     continue;
                 targetRouteInfo = routeInfo;
             }

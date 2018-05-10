@@ -2,20 +2,20 @@
 
 namespace GGM.Web.Router
 {
-    public enum HTTPMethod
+    public enum HTTPMethodType
     {
         Get, Post, Put, Delete
     }
 
-    class HTTPMethodComparer : IEqualityComparer<HTTPMethod>
+    class HTTPMethodComparer : IEqualityComparer<HTTPMethodType>
     {
 
-        public bool Equals(HTTPMethod x, HTTPMethod y)
+        public bool Equals(HTTPMethodType x, HTTPMethodType y)
         {
             return (int)x == (int)y;
         }
 
-        public int GetHashCode(HTTPMethod obj)
+        public int GetHashCode(HTTPMethodType obj)
         {
             return ((int)obj).GetHashCode();
         }

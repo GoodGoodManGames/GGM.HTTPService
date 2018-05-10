@@ -8,33 +8,33 @@ namespace GGM.Web.Router.Attribute
     [AttributeUsage(AttributeTargets.Method)]
     public class RouteAttribute : System.Attribute
     {
-        public RouteAttribute(HTTPMethod httpMethod, string routeUrl)
+        public RouteAttribute(HTTPMethodType httpMethodType, string routeUrl)
         {
-            HTTPMethod = httpMethod;
+            HttpMethodType = httpMethodType;
             URLPattern = routeUrl;
         }
         
-        public HTTPMethod HTTPMethod { get; }
+        public HTTPMethodType HttpMethodType { get; }
         public string URLPattern { get; }
     }
 
     public class GetAttribute : RouteAttribute
     {
-        public GetAttribute(string routeUrl) : base(HTTPMethod.Get, routeUrl) { }
+        public GetAttribute(string routeUrl) : base(HTTPMethodType.Get, routeUrl) { }
     }
 
     public class PostAttribute : RouteAttribute
     {
-        public PostAttribute(string routeUrl) : base(HTTPMethod.Post, routeUrl) { }
+        public PostAttribute(string routeUrl) : base(HTTPMethodType.Post, routeUrl) { }
     }
 
     public class PutAttribute : RouteAttribute
     {
-        public PutAttribute(string routeUrl) : base(HTTPMethod.Put, routeUrl) { }
+        public PutAttribute(string routeUrl) : base(HTTPMethodType.Put, routeUrl) { }
     }
 
     public class DeleteAttribute : RouteAttribute
     {
-        public DeleteAttribute(string routeUrl) : base(HTTPMethod.Delete, routeUrl) { }
+        public DeleteAttribute(string routeUrl) : base(HTTPMethodType.Delete, routeUrl) { }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using GGM.Application.Service;
 using System;
-using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using GGM.Application.Attribute;
 using GGM.Serializer;
 using GGM.Web.Router;
 using GGM.Web.Router.Util;
@@ -17,8 +17,7 @@ namespace GGM.Web
     /// </summary>
     public class WebService : IService
     {
-        public WebService(ITempleteResolverFactory resolverFactory, ISerializerFactory serializerFactory,
-            string[] prefixes, params object[] controllers)
+        public WebService(ITempleteResolverFactory resolverFactory, ISerializerFactory serializerFactory, params object[] controllers)
         {
             Router = new DefaultRouter();
             Controllers = controllers;
@@ -26,23 +25,21 @@ namespace GGM.Web
                 Router.RegisterController(controller);
 
             HttpListener = new HttpListener();
-            foreach (var prefix in prefixes)
-                HttpListener.Prefixes.Add(prefix);
-
             if (resolverFactory != null)
                 TempleteResolver = resolverFactory.Create();
             if (serializerFactory != null)
                 Serializer = serializerFactory.Create();
         }
 
-
+        [Config("prefix")]
+        public string Prefix { get; set; }
         public Guid ID { get; set; }
         public IRouter Router { get; }
         public ITempleteResolver TempleteResolver { get; }
         public ISerializer Serializer { get; protected set; }
         protected object[] Controllers { get; }
         protected HttpListener HttpListener { get; }
-        private bool mIsRunning = false;
+        private bool _isRunning = false;
 
         /// <summary>
         ///     WebService를 시작합니다.
@@ -54,9 +51,10 @@ namespace GGM.Web
             if (Serializer == null)
                 Console.WriteLine($"{GetType().Name + ID}의 Serializer가 지정되지 않았습니다.");
 
-            mIsRunning = true;
+            _isRunning = true;
+            HttpListener.Prefixes.Add(Prefix);
             HttpListener.Start();
-            while (mIsRunning)
+            while (_isRunning)
             {
                 HttpListenerContext context = await HttpListener.GetContextAsync().ConfigureAwait(false);
                 object result;
@@ -110,7 +108,7 @@ namespace GGM.Web
 
         protected void Stop()
         {
-            mIsRunning = false;
+            _isRunning = false;
             HttpListener.Stop();
             HttpListener.Close();
         }

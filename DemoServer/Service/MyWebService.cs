@@ -17,7 +17,7 @@ namespace DemoServer.Service
     {
         [AutoWired]
         public MyWebService(MyController myController, RazorTemplateResolverFactory resolverFactory, ProtobufSerializerFactory serializerFactory) 
-            : base(resolverFactory, serializerFactory, new string[] { "http://localhost:8002/" }, myController)
+            : base(resolverFactory, serializerFactory, myController)
         {
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GGM.Web.Router.Exception
+﻿namespace GGM.Web.Router.Exception
 {
     public class WrongPatternException : System.Exception
     {

@@ -7,18 +7,18 @@ namespace GGM.Web.Router.Util
 {
     public static class HttpListenerRequestExtension
     {
-        public static HTTPMethod GetHTTPMethod(this HttpListenerRequest self)
+        public static HTTPMethodType GetHTTPMethod(this HttpListenerRequest self)
         {
             switch(self.HttpMethod)
             {
                 case "GET":
-                    return HTTPMethod.Get;
+                    return HTTPMethodType.Get;
                 case "POST":
-                    return HTTPMethod.Post;
+                    return HTTPMethodType.Post;
                 case "PUT":
-                    return HTTPMethod.Put;
+                    return HTTPMethodType.Put;
                 case "DELETE":
-                    return HTTPMethod.Delete;
+                    return HTTPMethodType.Delete;
                 default:
                     throw new NotSupportedException();
             }
