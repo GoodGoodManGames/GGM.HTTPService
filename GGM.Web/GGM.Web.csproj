@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
     <Version>1.1.5</Version>
     <Description>GGM.Application에서 이용할 수 있는 WebSerivce입니다.</Description>
     <Copyright>
