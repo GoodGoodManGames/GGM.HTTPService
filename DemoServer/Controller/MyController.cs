@@ -4,6 +4,7 @@ using GGM.Web;
 using GGM.Web.Router.Attribute;
 using GGM.Web.View;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DemoServer.Controller
 {
@@ -71,13 +72,31 @@ namespace DemoServer.Controller
         {
             return testObj.Name;
         }
+
+
+        [Get("/byte_test")]
+        public byte[] ByteTest()
+        {
+            var testByte = new byte[1024];
+            testByte[0] = 97;
+            return testByte;
+        }
         
-        [Get("/aync_test")]
+        [Get("/async_test")]
         public async Task<string> AsyncTest()
         {
             await Task.Delay(6000);
             return "esresrsre";
         }
+
+        [Get("/file_load_test")]
+        public async Task<string> FileLoad()
+        {
+            var fileResponse = await new Response("").FileLoad("C:/Users/PC14/Desktop/abc.txt");
+            string str = Encoding.Default.GetString(fileResponse.Model as byte[]);
+            return str;
+        }
+        
     }
 
     public class TestModel

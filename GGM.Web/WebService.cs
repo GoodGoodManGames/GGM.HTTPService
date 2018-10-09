@@ -83,6 +83,8 @@ namespace GGM.Web
         {
             if (data is null)
                 throw new System.Exception("Data can't be NULL");
+            else if (data is byte[] bytes)
+                return bytes;
             else if (data is string message)
                 return Encoding.UTF8.GetBytes(message);
             else if (data is ViewModel viewModel)
