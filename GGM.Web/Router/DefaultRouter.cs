@@ -71,7 +71,7 @@ namespace GGM.Web.Router
             }
 
             if (targetRouteInfo == null)
-                return "wrong path";
+                return new Response("Wrong Path").SetStatusCode(HttpStatusCode.NotFound);
             return targetRouteInfo.RouterCallback(request, targetRouteInfo, serializer);
         }
 
